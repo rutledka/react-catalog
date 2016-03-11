@@ -29,69 +29,83 @@ var data = [
 
 class Header extends React.Component {
   render() {
-    return <header>
-     <div className="container">
-       <div className="row">
-         <div className="col-8 col-off-2">
-             <h1><a href="" className="site-logo">Label</a></h1>
+    return (
+      <header>
+       <div className="container">
+         <div className="row">
+           <div className="col-8 col-off-2">
+               <h1><a href="" className="site-logo">Label</a></h1>
+           </div>
+           <div className="col-2">
+             <a href="" className="checkout-bag">
+               <span className="checkout-bag-badge">4</span>
+             </a>
+             <div className="checkout-cart">
+               <h4>In Your Cart</h4>
+               <ul className="items">
+                 <li className="item">
+                   <img src="http://placehold.it/100/100" alt="" />
+                   <p className="name">Item</p>
+                   <span className="price">$20</span>
+                   <a href="">Remove</a>
+                 </li>
+               </ul>
+             </div>
+           </div>
          </div>
-         <div className="col-2">
-           <a href="" className="checkout-bag">
-             <span className="checkout-bag-badge">4</span>
-           </a>
-           <div className="checkout-cart">
-             <h4>In Your Cart</h4>
-             <ul className="items">
-               <li className="item">
-                 <img src="placehold.it/100/100" alt="" />
-                 <p className="name">Item</p>
-                 <span className="price">$20</span>
-                 <a href="">Remove</a>
-               </li>
-             </ul>
+         <div className="row">
+           <div className="col-8 col-off-2">
+             <nav>
+               <ul className="site-navigation">
+                 <li><a href="">All</a></li>
+                 <li><a href="">Men</a></li>
+                 <li><a href="">Women</a></li>
+               </ul>
+             </nav>
            </div>
          </div>
        </div>
-       <div className="row">
-         <div className="col-8 col-off-2">
-           <nav>
-             <ul className="site-navigation">
-               <li><a href="">All</a></li>
-               <li><a href="">Men</a></li>
-               <li><a href="">Women</a></li>
-             </ul>
-           </nav>
-         </div>
-       </div>
-     </div>
-   </header>
+     </header>
+   );
   }
 }
 
 class ProductRow extends React.Component {
+  constructor() {
+    super();
+    this.listProducts = this.listProducts.bind(this);
+  }
   render() {
-    return <section className="content">
-      <div className="container">
-        <div className="row">
-            <Product />
-            <Product />
-            <Product />
+    return (
+      <section className="content">
+        <div className="container">
+          <div className="row">
+              {this.listProducts()};
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    );
+  }
+  listProducts() {
+    return (
+      this.props.data.forEach(function(item) {
+        <Product data="item" />
+      })
+    )
   }
 }
 
 class Product extends React.Component {
   render() {
-    return
-    <div className="col-4">
-      <div className="product">
-        <img src="" alt="" />
-        <h4 className="product-name">Product Name<span className="price">20</span></h4>
-        <a href="" className="product-overlay">View Product Details</a>
+    return (
+      <div className="col-4">
+        <div className="product">
+          <img src="" alt="" />
+          <h4 className="product-name">{this.props.name}<span className="price">20</span></h4>
+          <a href="" className="product-overlay">View Product Details</a>
+        </div>
       </div>
-    </div>
+    );
   }
 }
 
@@ -105,8 +119,12 @@ class App extends React.Component {
     console.log('will mount');
   }
   render() {
+    console.log('rendered');
     return (
-      <ProductRow />
+      <div>
+        <Header />
+        <ProductRow data={this.data} />
+      </div>
     );
   }
   componentDidMount() {
