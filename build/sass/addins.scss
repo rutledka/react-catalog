@@ -1,0 +1,28 @@
+// Mixins
+
+@mixin imageBlock($width, $height, $background, $inlineBlock: false) {
+	width: $width;
+	height: 0px;
+	background: $background;
+	margin: 0;
+	padding: $height 0 0;
+	display: block;
+	overflow: hidden;
+	outline: none !important;
+}
+
+// Functions
+
+@function em($target, $base: 16) {
+	@return ($target / $base) * 1em;
+}
+
+// Common Extensions
+
+%clearfix {
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}

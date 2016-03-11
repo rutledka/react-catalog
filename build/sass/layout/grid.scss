@@ -1,0 +1,92 @@
+$siteWidth: 960px;
+$columns: 12;
+$gutters: 10px;
+
+@mixin breakpoint($point) {
+	@if $point == mobile {
+		@media all and (max-width: 639px) { @content; }
+	}
+	@if $point == phablet {
+		@media all and (min-width: 640px) { @content; }
+	}
+	@if $point == lt-tablet {
+		@media all and (max-width: 767px) { @content; }
+	}
+	@if $point == tablet {
+		@media all and (min-width: 768px) { @content; }
+	}
+
+	@if $point == lt-mid-tablet {
+		@media all and (max-width: 959px) { @content; }
+	}
+	@if $point == mid-tablet {
+		@media all and (min-width: 960px) { @content; }
+	}
+
+	@if $point == lt-desktop {
+		@media all and (max-width: 1023px) { @content; }
+	}
+	@else if $point == desktop {
+		@media all and (min-width: 1024px) { @content; }
+	}
+
+	@else if $point == lt-widescreen {
+		@media all and (max-width: 1199px)  { @content; }
+	}
+	@else if $point == widescreen {
+		@media all and (min-width: 1200px)  { @content; }
+	}
+}
+
+@mixin make-grid($point: tablet, $class: col, $gutter: $gutters, $columnCount: $columns) {
+	@if $class != col {
+		.#{$class}.row {
+			@include make-row($gutter);
+		}
+	}
+
+	@for $i from 1 through $columnCount {
+		.#{$class}-#{$i} {
+			@include make-col($point, $i, $gutter, $columnCount);
+		}
+
+		@include breakpoint($point) {
+			.#{$class}-off-#{$i} {
+				margin-left: (100% / $columnCount) * $i;
+			}
+		}
+	}
+}
+
+@mixin make-row($gutter: $gutters) {
+	@extend %clearfix;
+	margin: 0 (-$gutter / 2);
+}
+
+@mixin make-col($point, $count, $gutter: $gutters, $columnCount: $columns) {
+	padding-left: ($gutter / 2);
+	padding-right: ($gutter / 2);
+
+	@include breakpoint($point) {
+		width: percentage(($count / $columnCount));
+		float: left;
+	}
+}
+
+// Generate our default grid
+
+* {
+	box-sizing: border-box;
+}
+
+.container {
+	width: 94%;
+	max-width: $siteWidth;
+	margin: 0 auto;
+}
+
+.row {
+	@include make-row();
+}
+
+@include make-grid();

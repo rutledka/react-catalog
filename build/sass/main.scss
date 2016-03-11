@@ -1,0 +1,23 @@
+// Google Fonts
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700|Noto+Sans:400,700,400italic|Work+Sans:600,700);
+// Variables
+$droid: 'Droid Serif', Georgia, serif;
+$noto: 'Noto Sans', Arial, sans-serif;
+$work: 'Work Sans';
+
+$lightgrey: #999;
+$darkgrey: #333;
+
+
+// Base Imports
+@import "plugins";		// jQuery Plugins, Bootstrap, etc...
+@import "addins";		// Mixins, extensions, functions, etc...
+@import "./layout/grid";
+@import "base";			// global or element level styles
+@import "layout";		// Header, Content, & Footer containers
+@import "modules";		// Common elements throughout the site
+
+// Sections (page specific styles, overwrides module styles) - use responsibly
+
+// developer file - use responsibly
+@import "developer";
