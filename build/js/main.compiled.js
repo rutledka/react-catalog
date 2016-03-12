@@ -19849,13 +19849,18 @@
 
 	    var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(ProductRow).call(this));
 
-	    _this2.listProducts = _this2.listProducts.bind(_this2);
+	    _this2.addProductToCart = _this2.addProductToCart.bind(_this2);
+	    //this.props.addProductToCart = this.props.addProductToCart.bind(this);
 	    return _this2;
 	  }
 
 	  _createClass(ProductRow, [{
 	    key: "render",
 	    value: function render() {
+	      var clickFunction = this.addProductToCart;
+	      var productNodes = this.props.data.map(function (product) {
+	        return _react2.default.createElement(Product, { data: product, key: product.name, addProductToCart: clickFunction });
+	      });
 	      return _react2.default.createElement(
 	        "section",
 	        { className: "content" },
@@ -19865,20 +19870,16 @@
 	          _react2.default.createElement(
 	            "div",
 	            { className: "row" },
-	            this.listProducts()
+	            productNodes
 	          )
 	        )
 	      );
 	    }
 	  }, {
-	    key: "listProducts",
-	    value: function listProducts() {
-	      console.log('listProducts is running');
-	      var output = this.props.data.forEach(function (item) {
-	        return _react2.default.createElement(Product, { data: "item" });
-	      });
-
-	      return output;
+	    key: "addProductToCart",
+	    value: function addProductToCart(object) {
+	      console.log('this is in a function in the ProductRow component');
+	      this.props.addProductToCart(object);
 	    }
 	  }]);
 
@@ -19891,7 +19892,10 @@
 	  function Product() {
 	    _classCallCheck(this, Product);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Product).apply(this, arguments));
+	    var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(Product).call(this));
+
+	    _this3.addToCart = _this3.addToCart.bind(_this3);
+	    return _this3;
 	  }
 
 	  _createClass(Product, [{
@@ -19903,24 +19907,33 @@
 	        _react2.default.createElement(
 	          "div",
 	          { className: "product" },
-	          _react2.default.createElement("img", { src: "", alt: "" }),
+	          _react2.default.createElement("img", { src: this.props.data.image, alt: "" }),
 	          _react2.default.createElement(
 	            "h4",
 	            { className: "product-name" },
-	            this.props.name,
+	            this.props.data.name,
+	            " - ",
 	            _react2.default.createElement(
 	              "span",
 	              { className: "price" },
-	              "20"
+	              "$",
+	              this.props.data.price
 	            )
 	          ),
 	          _react2.default.createElement(
 	            "a",
-	            { href: "", className: "product-overlay" },
+	            { href: "", className: "product-overlay", onClick: this.addToCart },
 	            "View Product Details"
 	          )
 	        )
 	      );
+	    }
+	  }, {
+	    key: "addToCart",
+	    value: function addToCart(e) {
+	      e.preventDefault();
+	      console.log('this is in a function in the product component');
+	      this.props.addProductToCart({ 'name': this.props.data.name });
 	    }
 	  }]);
 
@@ -19937,10 +19950,17 @@
 
 	    _this4.state = { app: 'running' };
 	    _this4.data = data;
+	    _this4.addProductToCart = _this4.addProductToCart.bind(_this4);
 	    return _this4;
 	  }
 
 	  _createClass(App, [{
+	    key: "addProductToCart",
+	    value: function addProductToCart(object) {
+	      console.log('this is a function in the App component');
+	      console.log(object);
+	    }
+	  }, {
 	    key: "componentWillMount",
 	    value: function componentWillMount() {
 	      console.log('will mount');
@@ -19953,7 +19973,7 @@
 	        "div",
 	        null,
 	        _react2.default.createElement(Header, null),
-	        _react2.default.createElement(ProductRow, { data: this.data })
+	        _react2.default.createElement(ProductRow, { data: this.data, addProductToCart: this.addProductToCart })
 	      );
 	    }
 	  }, {

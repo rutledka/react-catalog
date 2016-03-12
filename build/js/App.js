@@ -1,6 +1,6 @@
 import React from 'react';
 
-var data = [
+let data = [
   {
     "name": "The Blue Sweater",
     "price": 80,
@@ -77,25 +77,26 @@ class ProductRow extends React.Component {
     //this.props.addProductToCart = this.props.addProductToCart.bind(this);
   }
   render() {
-    // var productNodes = this.props.data.map(function(product) {
-    //   return (
-    //     <Product data={product} key={product.name} addProductToCart={this.addProductToCart}/>
-    //   );
-    // }).bind(this);
+    let clickFunction = this.addProductToCart;
+    let productNodes = this.props.data.map(function(product) {
+      return (
+        <Product data={product} key={product.name} addProductToCart={clickFunction}/>
+      );
+    });
     return (
       <section className="content">
         <div className="container">
           <div className="row">
-              {/*{productNodes}*/}
-              <Product data={this.props.data[0]} key={this.props.data.name} addProductToCart={this.addProductToCart} />
+              {productNodes}
+              {/*<Product data={this.props.data[0]} key={this.props.data.name} addProductToCart={this.addProductToCart} />*/}
           </div>
         </div>
       </section>
     );
   }
-  addProductToCart() {
+  addProductToCart(object) {
     console.log('this is in a function in the ProductRow component');
-    this.props.addProductToCart();
+    this.props.addProductToCart(object);
   }
 }
 
@@ -118,7 +119,7 @@ class Product extends React.Component {
   addToCart(e) {
     e.preventDefault();
     console.log('this is in a function in the product component');
-    this.props.addProductToCart();
+    this.props.addProductToCart({'name': this.props.data.name});
   }
 }
 
@@ -129,8 +130,9 @@ class App extends React.Component {
     this.data = data;
     this.addProductToCart = this.addProductToCart.bind(this);
   }
-  addProductToCart() {
+  addProductToCart(object) {
     console.log('this is a function in the App component');
+    console.log(object);
   }
   componentWillMount() {
     console.log('will mount');
