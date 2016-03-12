@@ -105,7 +105,7 @@ nav {
   opacity: 0;
   z-index: -1;
 
-  &.active {
+  &[data-state="active"] {
     display: block;
     background: rgba(0,0,0, .3);
     margin: auto;
