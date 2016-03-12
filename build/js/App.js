@@ -73,39 +73,52 @@ class Header extends React.Component {
 class ProductRow extends React.Component {
   constructor() {
     super();
-    this.listProducts = this.listProducts.bind(this);
+    this.addProductToCart = this.addProductToCart.bind(this);
+    //this.props.addProductToCart = this.props.addProductToCart.bind(this);
   }
   render() {
+    // var productNodes = this.props.data.map(function(product) {
+    //   return (
+    //     <Product data={product} key={product.name} addProductToCart={this.addProductToCart}/>
+    //   );
+    // }).bind(this);
     return (
       <section className="content">
         <div className="container">
           <div className="row">
-              {this.listProducts()};
+              {/*{productNodes}*/}
+              <Product data={this.props.data[0]} key={this.props.data.name} addProductToCart={this.addProductToCart} />
           </div>
         </div>
       </section>
     );
   }
-  listProducts() {
-    return (
-      this.props.data.forEach(function(item) {
-        <Product data="item" />
-      })
-    )
+  addProductToCart() {
+    console.log('this is in a function in the ProductRow component');
+    this.props.addProductToCart();
   }
 }
 
 class Product extends React.Component {
+  constructor() {
+    super();
+    this.addToCart = this.addToCart.bind(this);
+  }
   render() {
     return (
       <div className="col-4">
         <div className="product">
-          <img src="" alt="" />
-          <h4 className="product-name">{this.props.name}<span className="price">20</span></h4>
-          <a href="" className="product-overlay">View Product Details</a>
+          <img src={this.props.data.image} alt="" />
+          <h4 className="product-name">{this.props.data.name} - <span className="price">${this.props.data.price}</span></h4>
+          <a href="" className="product-overlay" onClick={this.addToCart}>View Product Details</a>
         </div>
       </div>
     );
+  }
+  addToCart(e) {
+    e.preventDefault();
+    console.log('this is in a function in the product component');
+    this.props.addProductToCart();
   }
 }
 
@@ -114,6 +127,10 @@ class App extends React.Component {
     super();
     this.state = { app: 'running' };
     this.data = data;
+    this.addProductToCart = this.addProductToCart.bind(this);
+  }
+  addProductToCart() {
+    console.log('this is a function in the App component');
   }
   componentWillMount() {
     console.log('will mount');
@@ -123,7 +140,7 @@ class App extends React.Component {
     return (
       <div>
         <Header />
-        <ProductRow data={this.data} />
+        <ProductRow data={this.data} addProductToCart={this.addProductToCart} />
       </div>
     );
   }
