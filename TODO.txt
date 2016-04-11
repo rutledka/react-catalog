@@ -1,0 +1,5 @@
+TODO:
+
+1. Declare Proptypes for state classes
+2. Convert component classes that only have render method to a const with arrow function 
+3. Get Cart functionality working. Make sure parent element controls the app state

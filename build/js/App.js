@@ -125,6 +125,7 @@ class ProductOverlay extends React.Component {
 class App extends React.Component {
   constructor() {
     super();
+    // when using default JS classes to extend React.Component we declare state in the constructor() function
     this.state = {
       productOverlay: 'inactive',
       overlayData: {
@@ -140,6 +141,19 @@ class App extends React.Component {
     this.viewDetails = this.viewDetails.bind(this);
     this.dismissOverlay = this.dismissOverlay.bind(this);
   }
+  // getInitialState() only works with React.createClass() not when using default JS classes
+  // getInitialState() {
+  //   return {
+  //     productOverlay: 'inactive',
+  //     overlayData: {
+  //       id: '',
+  //       name: '',
+  //       price: '',
+  //       details: '',
+  //       image: ''
+  //     }
+  //   }
+  // }
   addProductToCart(object) {
     console.log('this is a function in the App component');
     console.log(object);
