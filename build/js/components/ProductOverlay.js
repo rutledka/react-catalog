@@ -27,4 +27,9 @@ class ProductOverlay extends React.Component {
   }
 }
 
+ProductOverlay.propTypes = {
+  data: React.PropTypes.object.isRequired,
+  isActive: React.PropTypes.string.isRequired
+}
+
 export default ProductOverlay;

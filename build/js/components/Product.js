@@ -29,4 +29,9 @@ class Product extends React.Component {
   }
 }
 
+Product.propTypes = {
+  data: React.PropTypes.object.isRequired,
+  viewDetails: React.PropTypes.func.isRequired
+}
+
 export default Product;

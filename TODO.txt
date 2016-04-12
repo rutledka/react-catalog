@@ -1,5 +1,6 @@
 TODO:
 
 1. Declare Proptypes for state classes
-2. Convert component classes that only have render method to a const with arrow function 
-3. Get Cart functionality working. Make sure parent element controls the app state
+2. Convert component classes that only have render method to a const with arrow function
+3. Move functions up to main parent modules and pass down from there
+4. Get Cart functionality working. Make sure parent element controls the app state

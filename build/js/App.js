@@ -1,31 +1,24 @@
 import React from 'react';
-import Header from './Header';
+import Header from './components/Header';
 import Product from './components/Product';
 import ProductOverlay from './components/ProductOverlay';
 import data from './data/data';
 
-class ProductRow extends React.Component {
-  constructor() {
-    super();
-    //this.addProductToCart = this.addProductToCart.bind(this);
-    this.viewDetails = this.viewDetails.bind(this);
-  }
-  render() {
-    let clickFunction = this.viewDetails;
-    return (
-      <section className="content">
-        <div className="container">
-          <div className="row">
-              { this.props.data.map((product) => ( <Product data={product} key={product.id} viewDetails={clickFunction}/> ) ) }
-          </div>
+const ProductRow = ({data, viewDetails}) => {
+  return (
+    <section className="content">
+      <div className="container">
+        <div className="row">
+            { data.map((product) => ( <Product data={product} key={product.id} viewDetails={viewDetails}/> ) ) }
         </div>
-      </section>
-    );
-  }
-  viewDetails(object) {
-    this.props.viewDetails(object);
-    console.log('view details in productRow');
-  }
+      </div>
+    </section>
+  )
+}
+
+ProductRow.propTypes = {
+  data: React.PropTypes.array.isRequired,
+  viewDetails: React.PropTypes.func.isRequired
 }
 
 class App extends React.Component {
