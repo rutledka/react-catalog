@@ -1,15 +1,15 @@
 var port = process.env.PORT || 3000;
 
 module.exports = {
-  entry: './build/js/main.js',
+  entry: './app/main.js',
   output: {
-    path: './build/',
+    path: './BUILD/',
     filename: "js/main.compiled.js",
     publicPath: '/'
   },
   devServer: {
     inline: true,
-    contentBase: './build/',
+    contentBase: './BUILD/',
     port: port
   },
   module: {
@@ -19,7 +19,8 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel',
         query: {
-          presets: ['es2015', 'react']
+          presets: ['es2015', 'react'],
+          plugins: ["transform-object-rest-spread"]
         }
       }
     ]

@@ -17,5 +17,8 @@
     "react-dom": "^0.14.7",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
+  },
+  "devDependencies": {
+    "redux": "^3.5.2"
   }
 }
