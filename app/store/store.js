@@ -54,7 +54,6 @@ const initialState = {
 
 
 
-
 /*
 *
   REDUCERS
@@ -82,7 +81,7 @@ const productDetails = (state, action) => {
       case 'SUBMIT_PRODUCT_REVIEW' :
         return {
           ...state,
-          reviews(state, action)
+          reviews : reviews(state, action) // do something with reviews array
         }
       default :
         return state;
@@ -95,7 +94,7 @@ const cart = (state = [], array) => {
       case 'ADD_ITEM_TO_CART' :
         return {
           ...state,
-          cartItem()
+          cartItem : cartItem() //do something with specific cartItem
         }
       case 'UPDATE_CART_ITEM_QUANTITY' :
       //if quantity is 0, remove the item from array
@@ -106,7 +105,7 @@ const cart = (state = [], array) => {
 }
 
 /** state refers to carItem object within cart array **/
-const cartItem (state, action) => {
+const cartItem = (state, action) => {
   switch (action.type) {
     case 'ADD_ITEM_TO_CART' :
       return {
@@ -126,15 +125,27 @@ const cartItem (state, action) => {
 /** how do we interact with external data using redux. two states? separate store?
  **/
 /** state refers to reviews array  **/
-const reviews => {
+const reviews = (state, action) => {
   switch (action.type) {
     case 'SUBMIT_PRODUCT_REVIEW' :
-      return {
+      return [
         ...state,
         {
           rating : action.rating,
           text : action.text
         }
+      ]
+    default :
+      return state;
+  }
+}
+
+const visibilityFilter = (state, action) => {
+  switch (action.type) {
+    case 'SET_VISIBILITY_FILTER' :
+      return {
+        ...state,
+        visibilityFilter : action.filter
       }
     default :
       return state;
@@ -144,11 +155,12 @@ const reviews => {
 const store = combineReducers({
   productDetails,
   cart,
+  visibilityFilter
 })
 
 /** ACTIONS **/
 
-const showProductDetails (productID) => {
+const showProductDetails = (productID) => {
   return {
     type : 'SHOW_PRODUCT_DETAILS',
     productID
@@ -179,7 +191,7 @@ const addItemToCart = (id, productID, quantity) => {
   }
 }
 
-const updateCartItemQuantity (id, quantity) => {
+const updateCartItemQuantity = (id, quantity) => {
   return {
     type : 'UPDATE_CART_ITEM_QUANTITY',
     quantity
