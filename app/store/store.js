@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import products from '../data/data';
 
 /*
 *
@@ -12,7 +13,7 @@ import { combineReducers } from 'redux';
     visibilityFilter : 'MEN' || 'WOMEN' || 'ALL',
     productDetails : {
       isActive : true || false,
-      productIndex : 0
+      productID : 0
     },
     cart :
       isVisible : true || false,
@@ -33,7 +34,10 @@ import { combineReducers } from 'redux';
           productID : 2,
           quantity : 1
         }
-    ]
+    ],
+    products : {
+      ...products
+    }
   }
   }
 *
@@ -43,7 +47,7 @@ const initialState = {
   visibilityFilter : 'ALL',
   productDetails : {
     isActive : false,
-    productIndex : null
+    productID : null
   },
   cart : []
 }
@@ -75,6 +79,11 @@ const productDetails = (state, action) => {
             productIndex : null
           }
         }
+      case 'SUBMIT_PRODUCT_REVIEW' :
+        return {
+          ...state,
+          reviews(state, action)
+        }
       default :
         return state;
     }
@@ -91,11 +100,6 @@ const cart = (state = [], array) => {
       case 'UPDATE_CART_ITEM_QUANTITY' :
       //if quantity is 0, remove the item from array
         return state
-      case 'SUBMIT_PRODUCT_REVIEW' :
-        return {
-          ...state,
-          reviews(state, action)
-        }
       default :
         return state;
     }
@@ -141,3 +145,43 @@ const store = combineReducers({
   productDetails,
   cart,
 })
+
+/** ACTIONS **/
+
+const showProductDetails (productID) => {
+  return {
+    type : 'SHOW_PRODUCT_DETAILS',
+    productID
+  }
+}
+
+const hideProductDetails = () => {
+  return {
+    type : 'HIDE_PRODUCT_DETAILS'
+  }
+}
+
+const submitProductReview = (productID, rating, text) => {
+  return {
+    type : 'SUBMIT_PRODUCT_REVIEW',
+    productID,
+    rating,
+    text
+  }
+
+}
+
+const addItemToCart = (id, productID, quantity) => {
+  return {
+    type : 'ADD_ITEM_TO_CART',
+    productID,
+    quantity
+  }
+}
+
+const updateCartItemQuantity (id, quantity) => {
+  return {
+    type : 'UPDATE_CART_ITEM_QUANTITY',
+    quantity
+  }
+}
