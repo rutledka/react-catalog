@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './components/Header';
 import Product from './components/Product';
 import ProductOverlay from './components/ProductOverlay';
+
 import data from './data/data';
 
 const ProductRow = ({data, viewDetails}) => {
@@ -62,6 +63,7 @@ class App extends React.Component {
   }
   render() {
     console.log('rendered');
+
     return (
       <div>
         <Header />
