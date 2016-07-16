@@ -43,7 +43,10 @@ const initialState = {
     isActive : false,
     productID : null
   },
-  cart : [],
+  cart : {
+    isVisible : false,
+    items : []
+  },
   products : [
     ...data
   ]
@@ -83,13 +86,10 @@ const products = (state = initialState.products, action) => {
     case undefined :
       return state;
     case 'SUBMIT_PRODUCT_REVIEW' :
-      console.log('hitting products reducer');
       return state.map((el, index, array) => {
-        if(el.id == action.productID) {
-          console.log('calling product()');
+        if(el.id === action.productID) {
           return product(el, action);
         }
-
         return el;
       });
     default :
@@ -103,7 +103,6 @@ const product = (state = [], action) => {
     case undefined :
       return state;
     case 'SUBMIT_PRODUCT_REVIEW' :
-    console.log('hitting product reducer');
       return {
         ...state,
         reviews : [
@@ -156,10 +155,10 @@ const items = (state = [], action) => {
     case 'UPDATE_CART_ITEM_QUANTITY' :
       //if quantity is 0, remove the item from array
       return state.map((item, index, array) => {
-        if(item.id == action.id) {
+        if(item.productID === action.productID) {
           return cartItem(item, action);
         }
-        return
+        return item;
       });
     default :
       return state;
@@ -181,31 +180,11 @@ const cartItem = (state = {}, action) => {
   }
 }
 
-/** how do we interact with external data using redux. two states? separate store?
- **/
-/** state refers to reviews array  **/
-const reviews = (state = initialState.reviews, action) => {
-  switch (action.type) {
-    case 'SUBMIT_PRODUCT_REVIEW' :
-      return [
-        ...state,
-        {
-          rating : action.rating,
-          text : action.text
-        }
-      ]
-    default :
-      return state;
-  }
-}
 
 const visibilityFilter = (state = initialState.visibilityFilter, action) => {
   switch (action.type) {
     case 'SET_VISIBILITY_FILTER' :
-      return {
-        ...state,
-        visibilityFilter : action.filter
-      }
+      return action.filter;
     default :
       return state;
   }

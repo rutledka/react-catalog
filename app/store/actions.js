@@ -17,17 +17,18 @@ const hideProductDetails = () => {
   }
 }
 
-const submitProductReview = (productID, rating, text) => {
+const submitProductReview = (productID, rating, reviewerName, text) => {
   return {
     type : 'SUBMIT_PRODUCT_REVIEW',
     productID,
     rating,
+    reviewerName,
     text
   }
 
 }
 
-const addItemToCart = (id, productID, quantity) => {
+const addItemToCart = (productID, quantity) => {
   return {
     type : 'ADD_ITEM_TO_CART',
     productID,
@@ -35,10 +36,18 @@ const addItemToCart = (id, productID, quantity) => {
   }
 }
 
-const updateCartItemQuantity = (id, quantity) => {
+const updateCartItemQuantity = (productID, quantity) => {
   return {
     type : 'UPDATE_CART_ITEM_QUANTITY',
+    productID,
     quantity
+  }
+}
+
+const setVisibilityFilter = (filter) => {
+  return {
+    type : 'SET_VISIBILITY_FILTER',
+    filter,
   }
 }
 
@@ -53,5 +62,7 @@ export default {
   hideProductDetails,
   submitProductReview,
   addItemToCart,
-  updateCartItemQuantity
+  updateCartItemQuantity,
+  setVisibilityFilter,
+  toggleCartVisibility
 }
