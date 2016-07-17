@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './components/Header';
 import Product from './components/Product';
 import ProductOverlay from './components/ProductOverlay';
+import Cart from './components/Cart';
 
 import data from './data/data';
 
@@ -58,22 +59,15 @@ class App extends React.Component {
     console.log('this is a function in the App component');
     console.log(object);
   }
-  componentWillMount() {
-    console.log('will mount');
-  }
   render() {
-    console.log('rendered');
-
     return (
       <div>
         <Header />
         <ProductRow data={this.data} viewDetails={this.viewDetails} />
+        <Cart isVisible={false} cartItems={[]} />
         <ProductOverlay isActive={this.state.productOverlay} dismissOverlay={this.dismissOverlay} data={this.state.overlayData}/>
       </div>
     );
-  }
-  componentDidMount() {
-    console.log('mounted');
   }
   viewDetails(object) {
     this.setState({
