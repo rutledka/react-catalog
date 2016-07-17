@@ -6,7 +6,7 @@ show/hide product details, leave product review, add items to cart, update cart 
 
 ## TODOS
 
-* ~Outline redux store: state, actions, and reducers~
+* Outline redux store: state, actions, and reducers. *DONE*
 * Reorganize react components into a UI hierarchy similar to shape of root state object. Separate into presentational and container components ([more on that here](http://redux.js.org/docs/basics/UsageWithReact.html)). (in progress)
 * Use [react-redux](https://github.com/reactjs/react-redux) bindings between components.
 * configure [gulp task](https://webpack.github.io/docs/usage-with-gulp.html) to run webpack and webpack-dev-server
