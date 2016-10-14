@@ -1,7 +1,12 @@
 import React from 'react';
+import action from '../store/actions';
 
 class Header extends React.Component {
+  constructor() {
+    super();
+  }
   render() {
+    const { store } = this.context;
     return (
       <header>
         <div className="container">
@@ -10,9 +15,42 @@ class Header extends React.Component {
               <h1><a href="" className="site-logo">Label</a></h1>
               <nav>
                 <ul className="site-navigation">
-                  <HeaderLink filter="ALL">All</HeaderLink>
-                  <HeaderLink filter="MEN">Men</HeaderLink>
-                  <HeaderLink filter="WOMEN">Women</HeaderLink>
+                  <HeaderLink
+                    href="#"
+                    onHeaderLinkClick={
+                      (e) => {
+                        e.preventDefault();
+                        store.dispatch(action.setVisibilityFilter("ALL"));
+                        console.log(store.getState());
+                      }
+                    }
+                  >
+                    All
+                  </HeaderLink>
+                  <HeaderLink
+                    href="#"
+                    onHeaderLinkClick={
+                      (e) => {
+                        e.preventDefault();
+                        store.dispatch(action.setVisibilityFilter("MEN"));
+                        console.log(store.getState());
+                      }
+                    }
+                  >
+                    Men
+                  </HeaderLink>
+                  <HeaderLink
+                    href="#"
+                    onHeaderLinkClick={
+                      (e) => {
+                        e.preventDefault();
+                        store.dispatch(action.setVisibilityFilter("WOMEN"));
+                        console.log(store.getState());
+                      }
+                    }
+                  >
+                    Women
+                  </HeaderLink>
                 </ul>
               </nav>
             </div>
@@ -23,9 +61,24 @@ class Header extends React.Component {
   }
 }
 
-const HeaderLink = ({ filter, children }) => {
+Header.contextTypes = {
+  store: React.PropTypes.object
+}
+
+const HeaderLink = ({ href, children, onHeaderLinkClick }) => {
   return (
-    <li><a href="" onClick={console.log(filter)}>{children}</a></li>
+    <li>
+      <a
+        href={ href }
+        onClick={
+          (e) => {
+            onHeaderLinkClick(e);
+          }
+        }
+        >
+        {children}
+      </a>
+    </li>
   )
 }
 

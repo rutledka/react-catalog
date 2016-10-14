@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import data from '../data/data';
+import productData from '../data/data';
 
 /*
 *
@@ -38,7 +38,7 @@ import data from '../data/data';
 */
 
 const initialState = {
-  visibilityFilter : 'ALL',
+  visibilityFilter : "ALL",
   productDetails : {
     isActive : false,
     productID : null
@@ -48,7 +48,7 @@ const initialState = {
     items : []
   },
   products : [
-    ...data
+    ...productData
   ]
 }
 

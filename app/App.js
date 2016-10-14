@@ -1,27 +1,11 @@
 import React from 'react';
 import Header from './components/Header';
-import Product from './components/Product';
+import ProductRow from './components/Product';
 import ProductOverlay from './components/ProductOverlay';
 import Cart from './components/Cart';
 
 import data from './data/data';
 
-const ProductRow = ({data, viewDetails}) => {
-  return (
-    <section className="content">
-      <div className="container">
-        <div className="row">
-            { data.map((product) => ( <Product data={product} key={product.id} viewDetails={viewDetails}/> ) ) }
-        </div>
-      </div>
-    </section>
-  )
-}
-
-ProductRow.propTypes = {
-  data: React.PropTypes.array.isRequired,
-  viewDetails: React.PropTypes.func.isRequired
-}
 
 class App extends React.Component {
   constructor() {
@@ -62,7 +46,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header store={this.props.store} />
         <ProductRow data={this.data} viewDetails={this.viewDetails} />
         <Cart isVisible={false} cartItems={[]} />
         <ProductOverlay isActive={this.state.productOverlay} dismissOverlay={this.dismissOverlay} data={this.state.overlayData}/>

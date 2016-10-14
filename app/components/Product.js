@@ -3,7 +3,6 @@ import React from 'react';
 class Product extends React.Component {
   constructor() {
     super();
-    //this.addToCart = this.addToCart.bind(this);
     this.viewDetails = this.viewDetails.bind(this);
   }
   render() {
@@ -34,4 +33,53 @@ Product.propTypes = {
   viewDetails: React.PropTypes.func.isRequired
 }
 
-export default Product;
+
+class ProductRow extends React.Component {
+  constructor() {
+    super();
+  }
+
+  componentDidMount() {
+    const { store } = this.context;
+    this.unsubscribe = store.subscribe(() => {
+      this.forceUpdate();
+    });
+  }
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+  render() {
+    const { store } = this.context;
+    const state = store.getState();
+    console.log(store.getState());
+    return (
+      <section className="content">
+        <div className="container">
+          <div className="row">
+            {
+                state.products.map((product) => {
+                  if( state.visibilityFilter == "ALL" ) {
+                    return  <Product data={product} key={product.id} viewDetails={this.props.viewDetails}/>;
+                  } else if ( product.visibility_filter == state.visibilityFilter ) {
+                    return  <Product data={product} key={product.id} viewDetails={this.props.viewDetails}/>;
+                  }
+                  return;
+                })
+            }
+          </div>
+        </div>
+      </section>
+    )
+  }
+}
+
+ProductRow.contextTypes = {
+  store: React.PropTypes.object
+}
+
+ProductRow.propTypes = {
+  data: React.PropTypes.array.isRequired,
+  viewDetails: React.PropTypes.func.isRequired
+}
+
+export default ProductRow;

@@ -1,5 +1,7 @@
 import React from 'react';
 
+// Dumb Component
+
 class Cart extends React.Component {
   constructor() {
     super();
@@ -21,10 +23,15 @@ class Cart extends React.Component {
   }
 }
 
+// Will contain a smart component that dispatches an action to go to the cart/checkout form.
+// This component might be composed of a generic <link> 'dumb' component
+
 Cart.PropTypes = {
   isVisible : React.PropTypes.bool.isRequired,
   cartItems : React.PropTypes.array.isRequired
 }
+
+// Dumb Comonent
 
 class CartItem extends React.Component {
   constructor() {
