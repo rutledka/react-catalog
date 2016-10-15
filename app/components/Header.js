@@ -1,5 +1,5 @@
 import React from 'react';
-import action from '../store/actions';
+import actions from '../store/actions';
 
 class Header extends React.Component {
   constructor() {
@@ -20,8 +20,7 @@ class Header extends React.Component {
                     onHeaderLinkClick={
                       (e) => {
                         e.preventDefault();
-                        store.dispatch(action.setVisibilityFilter("ALL"));
-                        console.log(store.getState());
+                        store.dispatch(actions.setVisibilityFilter("ALL"));
                       }
                     }
                   >
@@ -32,8 +31,7 @@ class Header extends React.Component {
                     onHeaderLinkClick={
                       (e) => {
                         e.preventDefault();
-                        store.dispatch(action.setVisibilityFilter("MEN"));
-                        console.log(store.getState());
+                        store.dispatch(actions.setVisibilityFilter("MEN"));
                       }
                     }
                   >
@@ -44,8 +42,7 @@ class Header extends React.Component {
                     onHeaderLinkClick={
                       (e) => {
                         e.preventDefault();
-                        store.dispatch(action.setVisibilityFilter("WOMEN"));
-                        console.log(store.getState());
+                        store.dispatch(actions.setVisibilityFilter("WOMEN"));
                       }
                     }
                   >
@@ -68,8 +65,7 @@ Header.contextTypes = {
 const HeaderLink = ({ href, children, onHeaderLinkClick }) => {
   return (
     <li>
-      <a
-        href={ href }
+      <a href={ href }
         onClick={
           (e) => {
             onHeaderLinkClick(e);

@@ -1,44 +1,10 @@
 import React from 'react';
-
-class Product extends React.Component {
-  constructor() {
-    super();
-    this.viewDetails = this.viewDetails.bind(this);
-  }
-  render() {
-    return (
-      <div className="col-4">
-        <div className="product">
-          <img src={this.props.data.image} alt="" />
-          <h4 className="product-name">{this.props.data.name} - <span className="price">${this.props.data.price}</span></h4>
-          <a href="" className="product-overlay" onClick={this.viewDetails}>View Product Details</a>
-        </div>
-      </div>
-    );
-  }
-  // addToCart(e) {
-  //   e.preventDefault();
-  //   console.log('this is in a function in the product component');
-  //   this.props.addProductToCart({'name': this.props.data.name});
-  // }
-  viewDetails(e) {
-    e.preventDefault();
-    this.props.viewDetails(this.props.data);
-    console.log('view details in product');
-  }
-}
-
-Product.propTypes = {
-  data: React.PropTypes.object.isRequired,
-  viewDetails: React.PropTypes.func.isRequired
-}
-
+import actions from '../store/actions';
 
 class ProductRow extends React.Component {
   constructor() {
     super();
   }
-
   componentDidMount() {
     const { store } = this.context;
     this.unsubscribe = store.subscribe(() => {
@@ -59,7 +25,19 @@ class ProductRow extends React.Component {
             {
                 state.products.map((product) => {
                   if( state.visibilityFilter == "ALL" ) {
-                    return  <Product data={product} key={product.id} viewDetails={this.props.viewDetails}/>;
+                    return  (
+                      <Product
+                        data={product}
+                        key={product.id}
+                        onProductLinkClick={
+                          (e) => {
+                            e.preventDefault();
+                            store.dispatch(actions.showProductDetails(product.id));
+                            console.dir(store.getState());
+                          }
+                        }
+                      />
+                    )
                   } else if ( product.visibility_filter == state.visibilityFilter ) {
                     return  <Product data={product} key={product.id} viewDetails={this.props.viewDetails}/>;
                   }
@@ -77,9 +55,33 @@ ProductRow.contextTypes = {
   store: React.PropTypes.object
 }
 
-ProductRow.propTypes = {
-  data: React.PropTypes.array.isRequired,
-  viewDetails: React.PropTypes.func.isRequired
+
+const Product = ({ data, children, onProductLinkClick }) => {
+  return (
+    <div className="col-4">
+      <div className="product">
+        <img src={data.image} alt="" />
+        <h4 className="product-name">{data.name} - <span className="price">${data.price}</span></h4>
+        <a href="#"
+          className="product-overlay"
+          onClick={
+            (e) => {
+              onProductLinkClick(e);
+            }
+          }
+        >
+          View Product Details {children}
+        </a>
+      </div>
+    </div>
+  )
 }
+
+Product.propTypes = {
+  data: React.PropTypes.object.isRequired
+}
+
+
+
 
 export default ProductRow;

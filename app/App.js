@@ -46,7 +46,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header store={this.props.store} />
+        <Header />
         <ProductRow data={this.data} viewDetails={this.viewDetails} />
         <Cart isVisible={false} cartItems={[]} />
         <ProductOverlay isActive={this.state.productOverlay} dismissOverlay={this.dismissOverlay} data={this.state.overlayData}/>

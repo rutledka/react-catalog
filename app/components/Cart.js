@@ -1,5 +1,5 @@
 import React from 'react';
-
+import actions from '../store/actions';
 // Dumb Component
 
 class Cart extends React.Component {
@@ -26,27 +26,53 @@ class Cart extends React.Component {
 // Will contain a smart component that dispatches an action to go to the cart/checkout form.
 // This component might be composed of a generic <link> 'dumb' component
 
-Cart.PropTypes = {
+Cart.propTypes = {
   isVisible : React.PropTypes.bool.isRequired,
   cartItems : React.PropTypes.array.isRequired
 }
 
 // Dumb Comonent
 
-class CartItem extends React.Component {
-  constructor() {
-    super();
+const CartItem = ({ key, children }) => {
+  return (
+    <li className="item">
+      <img src="http://placehold.it/100/100" alt="" />
+      <p className="name">Item</p>
+      <span className="price">$20</span>
+      <CartItemLink id={key} />
+    </li>
+  )
+}
+
+class CartItemLink extends React.Component {
+  constructor(props, context) {
+    super(props, context);
   }
-  render() {
+  render(){
+    const { store } = this.context;
+    const { id } = this.props;
     return (
-      <li className="item">
-        <img src="http://placehold.it/100/100" alt="" />
-        <p className="name">Item</p>
-        <span className="price">$20</span>
-        <a href="">Remove</a>
-      </li>
+      <a href="#"
+        className="icon icon-remove"
+        onClick = {
+          (e) => {
+            e.preventDefault();
+            store.dispatch(actions.updateCartItemQuantity(id, 0))
+          }
+        }
+      >
+        Remove
+      </a>
     )
   }
+}
+
+CartItem.contextTypes = {
+  store : React.PropTypes.object
+}
+
+CartItem.propTypes = {
+  id : React.PropTypes.number.isRequired
 }
 
 export default Cart;

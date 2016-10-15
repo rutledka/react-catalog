@@ -125,12 +125,12 @@ const cart = (state = {}, action) => {
       case 'ADD_ITEM_TO_CART' :
         return {
           ...state,
-          items : items(state.items, action)
+          items : cartItems(state.items, action)
         }
       case 'UPDATE_CART_ITEM_QUANTITY' :
         return {
           ...state,
-          items : items(state.items, action)
+          items : cartItems(state.items, action)
         }
       case 'TOGGLE_CART_VISIBILITY' :
         return {
@@ -142,7 +142,7 @@ const cart = (state = {}, action) => {
     }
 }
 
-const items = (state = [], action) => {
+const cartItems = (state = [], action) => {
   switch (action.type) {
     case 'ADD_ITEM_TO_CART' :
       return [
