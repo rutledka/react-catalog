@@ -120,7 +120,7 @@ const product = (state = [], action) => {
 }
 
 /** state refers to entire cart object **/
-const cart = (state = {}, action) => {
+const cart = (state = initialState.cart, action) => {
     switch (action.type) {
       case 'ADD_ITEM_TO_CART' :
         return {
@@ -154,9 +154,9 @@ const cartItems = (state = [], action) => {
       ]
     case 'UPDATE_CART_ITEM_QUANTITY' :
       //if quantity is 0, remove the item from array
-      return state.map((item, index, array) => {
+      return state.filter((item, index, array) => {
         if(item.productID === action.productID) {
-          return cartItem(item, action);
+          return;
         }
         return item;
       });
@@ -166,19 +166,19 @@ const cartItems = (state = [], action) => {
 }
 
 /** state refers to carItem object within cart array **/
-const cartItem = (state = {}, action) => {
-  switch (action.type) {
-    case undefined :
-      return state;
-    case 'UPDATE_CART_ITEM_QUANTITY' :
-      return {
-        ...state,
-        quantity : action.quantity
-      }
-    default :
-      return state;
-  }
-}
+// const cartItem = (state = {}, action) => {
+//   switch (action.type) {
+//     case undefined :
+//       return state;
+//     case 'UPDATE_CART_ITEM_QUANTITY' :
+//       return {
+//         ...state,
+//         quantity : action.quantity
+//       }
+//     default :
+//       return state;
+//   }
+// }
 
 
 const visibilityFilter = (state = initialState.visibilityFilter, action) => {

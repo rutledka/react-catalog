@@ -2,8 +2,8 @@ import React from 'react';
 import actions from '../store/actions';
 
 class ProductRow extends React.Component {
-  constructor() {
-    super();
+  constructor( props, context ) {
+    super( props, context );
   }
   componentDidMount() {
     const { store } = this.context;
@@ -24,7 +24,7 @@ class ProductRow extends React.Component {
           <div className="row">
             {
                 state.products.map((product) => {
-                  if( state.visibilityFilter == "ALL" ) {
+                  if( state.visibilityFilter == "ALL" || product.visibility_filter == state.visibilityFilter ) {
                     return  (
                       <Product
                         data={product}
@@ -38,8 +38,6 @@ class ProductRow extends React.Component {
                         }
                       />
                     )
-                  } else if ( product.visibility_filter == state.visibilityFilter ) {
-                    return  <Product data={product} key={product.id} viewDetails={this.props.viewDetails}/>;
                   }
                   return;
                 })
@@ -80,8 +78,6 @@ const Product = ({ data, children, onProductLinkClick }) => {
 Product.propTypes = {
   data: React.PropTypes.object.isRequired
 }
-
-
 
 
 export default ProductRow;

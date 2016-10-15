@@ -627,39 +627,41 @@ nav {
     max-width: 30%;
     float: left; }
 
-.product-detail-overlay {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  z-index: 0;
-  transition: .3s ease all;
-  top: 0;
-  opacity: 0;
-  z-index: -1; }
-  .product-detail-overlay[data-active="true"] {
-    display: block;
-    background: rgba(0, 0, 0, 0.3);
-    margin: auto;
-    left: 0;
-    right: 0;
+.product-detail {
+  /* .product-detail-overlay */
+  /* .product-details */ }
+  .product-detail-overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+    transition: .3s ease all;
     top: 0;
-    bottom: 0;
-    z-index: 5;
-    opacity: 1;
-    cursor: pointer; }
-    .product-detail-overlay[data-active="true"] .product-details {
+    opacity: 0;
+    z-index: -1; }
+    .product-detail-overlay[data-active="true"] {
+      display: block;
+      background: rgba(0, 0, 0, 0.3);
+      margin: auto;
+      left: 0;
+      right: 0;
+      top: 0;
       bottom: 0;
-      top: 20%; }
-
-.product-details {
-  max-width: 600px;
-  position: relative;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fff;
-  bottom: 100%;
-  top: 0;
-  transition: .5s ease all; }
+      z-index: 5;
+      opacity: 1;
+      cursor: pointer; }
+      .product-detail-overlay[data-active="true"] .product-details {
+        bottom: 0;
+        top: 10%; }
+  .product-details {
+    max-width: 600px;
+    position: relative;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    bottom: 100%;
+    top: 0;
+    transition: .5s ease all; }
 
 /* indclude module styles here or include separate module files from the modules directory */
 .product {

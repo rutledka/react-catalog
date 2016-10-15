@@ -83,9 +83,8 @@ const Reviews = ({ reviews }) => {
     <ul>
       {
         reviews.map(
-          (review) => {
-            console.log(review);
-            return <Review data={review} />
+          (review, index) => {
+            return <Review data={review} key={index} />
           }
         )
       }

@@ -47,8 +47,8 @@ class App extends React.Component {
     return (
       <div>
         <Header />
-        <ProductRow data={this.data} viewDetails={this.viewDetails} />
-        <Cart isVisible={false} cartItems={[]} />
+        <ProductRow />
+        <Cart />
         <ProductOverlay isActive={this.state.productOverlay} dismissOverlay={this.dismissOverlay} data={this.state.overlayData}/>
       </div>
     );
