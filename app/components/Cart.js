@@ -19,27 +19,65 @@ class Cart extends React.Component {
     const { store } = this.context;
     const state = store.getState();
     const cart = state.cart;
-    console.log(state, cart);
+
+    let cartPrices = [];
+    let cartTotal;
+
+    cart.items.map((item) => {
+      console.dir(state.products[item.productID]);
+      let subtotal = state.products[item.productID].price * item.quantity;
+      cartPrices = [...cartPrices, subtotal];
+      console.log(item);
+
+    });
+    console.log(cartPrices);
+    cartTotal = _.sum(cartPrices);
+    console.log(cartTotal);
+
     if ( cart.items.length ) {
       return (
-        <div className="checkout-cart">
-          <a href="" className="checkout-bag">
-            <span className="checkout-bag-badge">4</span>
-          </a>
-          <div className="checkout-cart-contents">
-            <h4>In Your Cart</h4>
+        <div className="page-overlay cart"
+          data-active={cart.isVisible}
+          >
+          <div className="page-overlay-interior">
+            <a href="#"
+              onClick={
+                (e) => {
+                  e.preventDefault();
+                  store.dispatch(actions.toggleCartVisibility());
+                }
+              }
+            >Close</a>
+            <h4>In Your Bag</h4>
             <ul className="items">
-                { cart.items.map((item) => ( <CartItem data={item} key={item.productID} id={item.productID} /> )) }
+                {
+                  cart.items.map(
+                    (item) => {
+                      return <CartItem data={state.products[item.productID]} quantity={item.quantity} key={item.productID} id={item.productID} />
+                    }
+                  )
+                }
             </ul>
+            <p>TOTAL: ${ cartTotal.toFixed(2) }</p>
           </div>
         </div>
       )
     }
     return (
-      <div className="checkout-cart">
-        <a href="" className="checkout-bag">
-          <span className="checkout-bag-badge">4</span>
-        </a>
+      <div className="page-overlay cart"
+        data-active={cart.isVisible}
+        >
+        <div className="page-overlay-interior">
+          <a href="#"
+            onClick={
+              (e) => {
+                e.preventDefault();
+                store.dispatch(actions.toggleCartVisibility());
+              }
+            }
+          >Close</a>
+          <h4>In Your Bag</h4>
+        </div>
       </div>
     )
   }
@@ -49,18 +87,14 @@ Cart.contextTypes = {
   store : React.PropTypes.object
 }
 
-// Will contain a smart component that dispatches an action to go to the cart/checkout form.
-// This component might be composed of a generic <link> 'dumb' component
 
-
-// Dumb Comonent
-
-const CartItem = ({ id, children }) => {
+const CartItem = ({ data, id, quantity, children }) => {
   return (
     <li className="item">
       <img src="http://placehold.it/100/100" alt="" />
-      <p className="name">Item</p>
-      <span className="price">$20</span>
+      <p className="name">{ data.name }</p>
+      <span className="price">PRICE: ${ data.price }</span><br/>
+      <span className="quantity">QUANTITY: { quantity }</span>
       <CartItemLink id={id} />
       {children}
     </li>
@@ -94,7 +128,7 @@ class CartItemLink extends React.Component {
           }
         }
       >
-        Remove it {id}
+        Remove From Bag
       </a>
     )
   }

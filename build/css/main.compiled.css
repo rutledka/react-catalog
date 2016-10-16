@@ -587,6 +587,9 @@ nav {
   text-align: center; }
   .site-logo:hover {
     text-decoration: none; }
+  @media all and (max-width: 767px) {
+    .site-logo {
+      text-align: left; } }
 
 .checkout-bag {
   background: url("/img/everlane-bag.svg") no-repeat;
@@ -595,73 +598,26 @@ nav {
   float: right;
   display: block;
   text-align: center;
-  border: 1px solid transparent; }
+  border: 1px solid #333; }
   .checkout-bag span {
     position: relative;
     top: 13px; }
   .checkout-bag:hover {
-    text-decoration: none;
-    border: 1px solid #999;
-    border-bottom: #fff;
-    position: relative;
-    z-index: 3; }
-
-.checkout-cart {
-  position: absolute;
-  max-width: 400px;
-  border: 1px solid #999;
-  padding: 15px;
-  z-index: 3;
-  background-color: #fff;
-  top: 40px; }
-  .checkout-cart h4 {
-    text-align: center; }
-
-.items {
-  padding: 0;
-  margin: 0; }
+    text-decoration: none; }
+  @media all and (max-width: 767px) {
+    .checkout-bag {
+      position: absolute;
+      right: 20px;
+      top: 20px; } }
 
 .item {
   list-style: none; }
   .item img {
     max-width: 30%;
     float: left; }
-
-.product-detail {
-  /* .product-detail-overlay */
-  /* .product-details */ }
-  .product-detail-overlay {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    z-index: 0;
-    transition: .3s ease all;
-    top: 0;
-    opacity: 0;
-    z-index: -1; }
-    .product-detail-overlay[data-active="true"] {
-      display: block;
-      background: rgba(0, 0, 0, 0.3);
-      margin: auto;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      z-index: 5;
-      opacity: 1;
-      cursor: pointer; }
-      .product-detail-overlay[data-active="true"] .product-details {
-        bottom: 0;
-        top: 10%; }
-  .product-details {
-    max-width: 600px;
-    position: relative;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    bottom: 100%;
-    top: 0;
-    transition: .5s ease all; }
+  .items {
+    padding: 0;
+    margin: 0; }
 
 /* indclude module styles here or include separate module files from the modules directory */
 .product {
@@ -694,5 +650,43 @@ nav {
 .product-name {
   text-align: center;
   margin-top: 15px; }
+
+.page-overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+  transition: all .7s ease;
+  top: 0;
+  opacity: 0;
+  z-index: -1;
+  background: rgba(255, 255, 255, 0.3); }
+  .page-overlay[data-active="true"] {
+    display: block;
+    background: white;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 5;
+    opacity: 1; }
+    .page-overlay[data-active="true"].product-details {
+      top: 0; }
+    .page-overlay[data-active="true"].cart {
+      left: 0; }
+  .page-overlay.product-details {
+    top: 100%; }
+  .page-overlay.cart {
+    left: 100%; }
+  .page-overlay-interior {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 50px;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    overflow: scroll; }
 
 /* if you have to, use this file for quick css insertions */

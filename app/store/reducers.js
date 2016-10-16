@@ -145,6 +145,28 @@ const cart = (state = initialState.cart, action) => {
 const cartItems = (state = [], action) => {
   switch (action.type) {
     case 'ADD_ITEM_TO_CART' :
+      let inCart = false;
+
+      const newState = state.map((item) => {
+        if(item.productID == action.productID) {
+          inCart = true;
+          return {
+            ...item,
+            quantity: item.quantity + action.quantity
+          }
+        }
+        return item;
+      });
+
+      console.log('state:');
+      console.dir(state);
+      console.log('newState:');
+      console.dir(newState);
+
+      if( inCart ) {
+        return newState;
+      }
+
       return [
         ...state,
         {

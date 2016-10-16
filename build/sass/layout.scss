@@ -7,80 +7,71 @@ nav {
   text-align: center;
 }
 
-.site-navigation {
-  font-family: $droid;
-  padding: 0;
-  display: flex;
-  justify-content: center;
+.site {
+  &-navigation {
+    font-family: $droid;
+    padding: 0;
+    display: flex;
+    justify-content: center;
 
-  a {
-    color: $darkgrey;
+    a {
+      color: $darkgrey;
+      display: block;
+      padding: 10px;
+    }
+
+    li {
+      flex: none;
+      list-style: none;
+      margin: 0 25px;
+    }
+  }
+
+  &-logo {
+    font-family: $work;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 48px;
     display: block;
-    padding: 10px;
-  }
+    color: $darkgrey;
+    letter-spacing: 8px;
+    text-align: center;
 
-  li {
-    flex: none;
-    list-style: none;
-    margin: 0 25px;
-  }
-}
+    &:hover {
+      text-decoration: none;
+    }
 
-.site-logo {
-  font-family: $work;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 48px;
-  display: block;
-  color: $darkgrey;
-  letter-spacing: 8px;
-  text-align: center;
-
-  &:hover {
-    text-decoration: none;
+    @include breakpoint(lt-tablet) {
+      text-align: left;
+    }
   }
 }
 
-.checkout-bag {
-  background: url('/img/everlane-bag.svg') no-repeat;
-  height: 42px;
-  width: 46px;
-  float: right;
-  display:block;
-  text-align: center;
-  border: 1px solid transparent;
+.checkout {
+  &-bag {
+    background: url('/img/everlane-bag.svg') no-repeat;
+    height: 42px;
+    width: 46px;
+    float: right;
+    display: block;
+    text-align: center;
+    border: 1px solid $darkgrey;
 
-  span {
-    position: relative;
-    top: 13px;
+    span {
+      position: relative;
+      top: 13px;
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    @include breakpoint(lt-tablet) {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+    }
   }
-
-  &:hover {
-    text-decoration: none;
-    border: 1px solid $lightgrey;
-    border-bottom: #fff;
-    position: relative;
-    z-index: 3;
-  }
-}
-
-.checkout-cart {
-   position: absolute;
-   max-width: 400px;
-   border: 1px solid $lightgrey;
-   padding: 15px;
-   z-index: 3;
-   background-color: #fff;
-   top: 40px;
-
-   h4 {
-     text-align: center;
-   }
-}
-
-.items {
-  padding: 0;
-  margin: 0;
 }
 
 .item {
@@ -91,50 +82,9 @@ nav {
     max-width: 30%;
     float: left;
   }
-}
 
-
-//product detail overlay
-.product-detail {
-  /* .product-detail-overlay */
-  &-overlay {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    z-index: 0;
-    transition: .3s ease all;
-    top: 0;
-    opacity: 0;
-    z-index: -1;
-
-    &[data-active="true"] {
-      display: block;
-      background: rgba(0,0,0, .3);
-      margin: auto;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      z-index: 5;
-      opacity: 1;
-      cursor: pointer;
-
-      .product-details {
-          bottom: 0;
-          top: 10%;
-      }
-    }
-  }
-
-/* .product-details */
   &s {
-    max-width: 600px;
-    position: relative;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    bottom: 100%;
-    top: 0;
-    transition: .5s ease all;
+    padding: 0;
+    margin: 0;
   }
 }
